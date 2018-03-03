@@ -26,7 +26,10 @@ export default class ChecklistDetails extends Component {
             this.state.isEditMode ?
                 <ChecklistForm projectId={this.props.projectId} addChecklistItem={this.props.addChecklistItem}
                                setEditMode={this.handleSetEditMode}/> :
-                <ChecklistView checklist={this.props.checklist} setEditMode={this.handleSetEditMode}/>
+                <ChecklistView projectId={this.props.projectId}
+                               checklist={this.props.checklist}
+                               setEditMode={this.handleSetEditMode}
+                               updateChecklistItem={this.props.updateChecklistItem}/>
         )
     }
 }

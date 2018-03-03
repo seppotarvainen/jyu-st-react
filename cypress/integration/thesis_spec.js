@@ -192,5 +192,22 @@ describe('React project test', function () {
         testProjectChecklistItemCount(2);
     });
 
+    it('Test version 1.5: mark item as done', function () {
+        addProject('My project title', 'This is something absolutely great');
+        addProject('Another project', 'This is something else');
+        addChecklistItemToSelected('Checklist item content');
+        addChecklistItemToSelected('Another todo item');
+        cy.contains('Checklist item content').click().should('have.class', 'done');
+
+        cy.contains('My project title')
+            .click();
+        addChecklistItemToSelected('1st todo item');
+
+        cy.contains('Another project')
+            .click();
+
+        cy.contains('Checklist item content').should('have.class', 'done');
+        cy.contains('Another todo item').should('not.have.class', 'done');
+    });
 
 });

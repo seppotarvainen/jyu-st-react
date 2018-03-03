@@ -11,4 +11,5 @@ export default class BaseURL {
     static base = BASE_URL;
     static singleProject = BASE_URL + "/{1}";
     static singleProjectChecklist = BASE_URL + "/{1}/checklist-items";
+    static singleProjectChecklistItem = BASE_URL + "/{1}/checklist-items/{2}";
 }

@@ -22,6 +22,7 @@ export default class ProjectDetails extends Component {
                              setProjectFormEdit={this.props.setProjectFormEdit}
                              updateProject={this.props.updateProject}
                              deleteProject={this.props.deleteProject}
+                             updateChecklistItem={this.props.updateChecklistItem}
                              addChecklistItem={this.props.addChecklistItem}/>
         )
     }
