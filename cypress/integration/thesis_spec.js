@@ -98,4 +98,15 @@ describe('React project test', function () {
         cy.contains('0h 0min 1s');
     });
 
+    it('Test version 1.1: mark as done', function () {
+        addProject('My project title', 'This is something absolutely great');
+        addProject('Another project', 'This is something else');
+
+        cy.get('#markDone')
+            .click();
+
+        cy.get('h1>span');
+        cy.get('.col-sm-3>div button.list-group-item>span').should('have.length', 1);
+    });
+
 });
