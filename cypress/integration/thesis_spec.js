@@ -210,4 +210,28 @@ describe('React project test', function () {
         cy.contains('Another todo item').should('not.have.class', 'done');
     });
 
+
+    it('Test version 1.6: delete done items', function () {
+        addProject('My project title', 'This is something absolutely great');
+        addProject('Another project', 'This is something else');
+        addChecklistItemToSelected('Checklist item content');
+        addChecklistItemToSelected('Another todo item');
+        addChecklistItemToSelected('Third todo item');
+        cy.contains('Checklist item content')
+            .click().should('have.class', 'done');
+        cy.contains('Third todo item')
+            .click().should('have.class', 'done');
+
+        cy.contains('Delete done items')
+            .click();
+
+        testProjectChecklistItemCount(1);
+
+        cy.contains('My project title')
+            .click();
+        cy.contains('Another project')
+            .click();
+        testProjectChecklistItemCount(1);
+    })
+
 });

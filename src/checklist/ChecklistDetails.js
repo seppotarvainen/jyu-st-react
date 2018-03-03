@@ -29,7 +29,8 @@ export default class ChecklistDetails extends Component {
                 <ChecklistView projectId={this.props.projectId}
                                checklist={this.props.checklist}
                                setEditMode={this.handleSetEditMode}
-                               updateChecklistItem={this.props.updateChecklistItem}/>
+                               updateChecklistItem={this.props.updateChecklistItem}
+                               deleteDoneChecklistItems={this.props.deleteDoneChecklistItems}/>
         )
     }
 }

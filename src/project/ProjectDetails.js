@@ -23,7 +23,8 @@ export default class ProjectDetails extends Component {
                              updateProject={this.props.updateProject}
                              deleteProject={this.props.deleteProject}
                              updateChecklistItem={this.props.updateChecklistItem}
-                             addChecklistItem={this.props.addChecklistItem}/>
+                             addChecklistItem={this.props.addChecklistItem}
+                             deleteDoneChecklistItems={this.props.deleteDoneChecklistItems}/>
         )
     }
 }

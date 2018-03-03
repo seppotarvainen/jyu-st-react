@@ -34,6 +34,7 @@ class App extends Component {
         this.setTimerRunning = this.setTimerRunning.bind(this);
         this.addProjectChecklistItem = this.addProjectChecklistItem.bind(this);
         this.updateProjectChecklistItem = this.updateProjectChecklistItem.bind(this);
+        this.deleteDoneProjectChecklistItems = this.deleteDoneProjectChecklistItems.bind(this);
     }
 
     componentDidMount() {
@@ -176,6 +177,7 @@ class App extends Component {
     }
 
     updateProjectChecklistItem(item, projectId) {
+
         let callback = response => {
             let allProjects = this.state.projects.slice();
             let index = allProjects.findIndex(p => projectId === p.id);
@@ -187,6 +189,20 @@ class App extends Component {
         };
 
         HttpCall.put(BaseURL.singleProjectChecklistItem.replace('{1}', projectId).replace('{2}', item.id), callback, item);
+    }
+
+    deleteDoneProjectChecklistItems(projectId) {
+        let callback = () => {
+            let allProjects = this.state.projects.slice();
+            let index = allProjects.findIndex(p => projectId === p.id);
+            allProjects[index].checklist = allProjects[index].checklist.filter(item => !item.done);
+
+            this.setState({
+                projects: allProjects
+            });
+        };
+
+        HttpCall.delete(BaseURL.singleProjectChecklist.replace('{1}', projectId), callback);
     }
 
 
@@ -231,6 +247,7 @@ class App extends Component {
                                             deleteProject={this.deleteProject}
                                             addChecklistItem={this.addProjectChecklistItem}
                                             updateChecklistItem={this.updateProjectChecklistItem}
+                                            deleteDoneChecklistItems={this.deleteDoneProjectChecklistItems}
                                             setProjectFormEdit={this.setProjectFormEdit}
                             />
                         </div>

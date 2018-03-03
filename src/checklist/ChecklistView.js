@@ -8,10 +8,15 @@ export default class ChecklistView extends Component {
         super(props);
 
         this.clickAddItem = this.clickAddItem.bind(this);
+        this.deleteDoneItems = this.deleteDoneItems.bind(this);
     }
 
     clickAddItem() {
         this.props.setEditMode(true);
+    }
+
+    deleteDoneItems() {
+        this.props.deleteDoneChecklistItems(this.props.projectId);
     }
 
     render() {
@@ -28,6 +33,7 @@ export default class ChecklistView extends Component {
                     {checklistItems}
                 </ul>
                 <button className="btn btn-default" onClick={this.clickAddItem}>Add item</button>
+                <button className="btn btn-danger" onClick={this.deleteDoneItems}>Delete done items</button>
             </div>
         )
     }

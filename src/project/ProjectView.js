@@ -79,7 +79,8 @@ export default class ProjectView extends Component {
                             <ChecklistDetails projectId={this.props.project.id}
                                               updateChecklistItem={this.props.updateChecklistItem}
                                               addChecklistItem={this.props.addChecklistItem}
-                                              checklist={this.props.project.checklist}/>
+                                              checklist={this.props.project.checklist}
+                                              deleteDoneChecklistItems={this.props.deleteDoneChecklistItems}/>
                         </div>
                     </div> :
                     null}
