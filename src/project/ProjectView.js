@@ -49,17 +49,22 @@ export default class ProjectView extends Component {
                     <p className="lead">{isProjectSelected ? this.props.project.description : ""}</p>
                     <hr />
                     {isProjectSelected ?
-                        <Timer timeInSeconds={this.props.project.timeInSeconds} updateTime={this.updateTime}/> : null}
+                        <Timer timeInSeconds={this.props.project.timeInSeconds}
+                               updateTime={this.updateTime}
+                               setTimerRunning={this.props.setTimerRunning}
+                        /> : null}
                 </div>
 
                 <br />
                 {isProjectSelected ?
                     <div>
                         <div className="row">
-                            <button type="button" className="btn btn-default" onClick={this.clickEditProject}>
+                            <button disabled={this.props.isTimerRunning} type="button" className={"btn btn-default"}
+                                    onClick={this.clickEditProject}>
                                 Edit project
                             </button>
-                            <button type="button" className="btn btn-danger" onClick={this.deleteProject}>
+                            <button disabled={this.props.isTimerRunning} type="button" className={"btn btn-danger"}
+                                    onClick={this.deleteProject}>
                                 <span className="glyphicon glyphicon-trash" aria-hidden="true"/> Delete project
                             </button>
                         </div>

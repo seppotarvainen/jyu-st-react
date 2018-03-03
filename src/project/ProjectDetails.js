@@ -17,6 +17,8 @@ export default class ProjectDetails extends Component {
                 <ProjectForm project={this.props.project} submitForm={this.props.submitForm}
                              cancelForm={this.props.cancelForm}/> :
                 <ProjectView project={this.props.project}
+                             isTimerRunning={this.props.isTimerRunning}
+                             setTimerRunning={this.props.setTimerRunning}
                              setProjectFormEdit={this.props.setProjectFormEdit}
                              updateProject={this.props.updateProject}
                              deleteProject={this.props.deleteProject}/>

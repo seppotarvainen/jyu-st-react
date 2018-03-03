@@ -16,6 +16,7 @@ class App extends Component {
 
         this.state = {
             projects: [],
+            isTimerRunning: false,
             selectedProject: null,
             isFormView: false
         };
@@ -30,6 +31,7 @@ class App extends Component {
         this.setProjectFormEdit = this.setProjectFormEdit.bind(this);
         this.handleSubmitEditForm = this.handleSubmitEditForm.bind(this);
         this.handleSubmitNewForm = this.handleSubmitNewForm.bind(this);
+        this.setTimerRunning = this.setTimerRunning.bind(this);
     }
 
     componentDidMount() {
@@ -45,6 +47,8 @@ class App extends Component {
      * @param project - Project object
      */
     setSelectedProject(project) {
+        if (this.state.isTimerRunning) return;
+
         this.setState({selectedProject: project});
     }
 
@@ -59,11 +63,15 @@ class App extends Component {
     }
 
     setProjectFormAdd() {
+        if (this.state.isTimerRunning) return;
+
         let emptyProject = this.generateEmpyProject();
         this.setProjectView(emptyProject, true);
     }
 
     setProjectFormEdit(project) {
+        if (this.state.isTimerRunning) return;
+
         this.setProjectView(project, true);
     }
 
@@ -132,6 +140,8 @@ class App extends Component {
     }
 
     deleteProject(project) {
+        if (this.state.isTimerRunning) return;
+
         let callback = () => {
             let index = this.state.projects.findIndex(p => project.id === p.id);
             let allProjects = this.state.projects.slice();
@@ -147,6 +157,10 @@ class App extends Component {
 
         HttpCall.delete(url, callback);
     }
+
+    setTimerRunning = function (isRunning) {
+        this.setState({isTimerRunning: isRunning});
+    };
 
     render() {
         return (
@@ -164,10 +178,13 @@ class App extends Component {
                             <h3>
                                 <small><strong>PROJECTS</strong></small>
                             </h3>
-                            <ProjectList projects={this.state.projects} handleSelect={this.setSelectedProject}
+                            <ProjectList projects={this.state.projects}
+                                         isTimerRunning={this.state.isTimerRunning}
+                                         handleSelect={this.setSelectedProject}
                                          selectedProject={this.state.selectedProject}/>
                             <br />
-                            <button className="btn btn-default" onClick={this.setProjectFormAdd}>
+                            <button className="btn btn-default" disabled={this.state.isTimerRunning}
+                                    onClick={this.setProjectFormAdd}>
                                 <span className="glyphicon glyphicon-plus" aria-hidden="true"/> Add project
                             </button>
                         </div>
@@ -175,6 +192,8 @@ class App extends Component {
                             <ProjectDetails project={this.state.selectedProject}
                                             updateProject={this.updateProject}
                                             isFormView={this.state.isFormView}
+                                            isTimerRunning={this.state.isTimerRunning}
+                                            setTimerRunning={this.setTimerRunning}
                                             submitForm={this.submitProjectForm}
                                             cancelForm={this.cancelProjectForm}
                                             deleteProject={this.deleteProject}
