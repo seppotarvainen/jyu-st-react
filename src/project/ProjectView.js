@@ -3,6 +3,7 @@
  */
 import React, {Component} from "react";
 import Timer from "../timer/Timer";
+import ChecklistDetails from "../checklist/ChecklistDetails";
 
 export default class ProjectView extends Component {
 
@@ -73,6 +74,11 @@ export default class ProjectView extends Component {
                             <input type="checkbox" id="markDone" onChange={this.toggleDone}
                                    checked={this.props.project.done}/>&ensp;
                             <label htmlFor="markDone">Mark project as done</label>
+                        </div>
+                        <div className="row">
+                            <ChecklistDetails projectId={this.props.project.id}
+                                              addChecklistItem={this.props.addChecklistItem}
+                                              checklist={this.props.project.checklist}/>
                         </div>
                     </div> :
                     null}

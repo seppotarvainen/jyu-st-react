@@ -21,7 +21,8 @@ export default class ProjectDetails extends Component {
                              setTimerRunning={this.props.setTimerRunning}
                              setProjectFormEdit={this.props.setProjectFormEdit}
                              updateProject={this.props.updateProject}
-                             deleteProject={this.props.deleteProject}/>
+                             deleteProject={this.props.deleteProject}
+                             addChecklistItem={this.props.addChecklistItem}/>
         )
     }
 }

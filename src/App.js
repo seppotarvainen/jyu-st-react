@@ -32,6 +32,7 @@ class App extends Component {
         this.handleSubmitEditForm = this.handleSubmitEditForm.bind(this);
         this.handleSubmitNewForm = this.handleSubmitNewForm.bind(this);
         this.setTimerRunning = this.setTimerRunning.bind(this);
+        this.addProjectChecklistItem = this.addProjectChecklistItem.bind(this);
     }
 
     componentDidMount() {
@@ -158,6 +159,22 @@ class App extends Component {
         HttpCall.delete(url, callback);
     }
 
+    addProjectChecklistItem(item, projectId) {
+
+        let callback = response => {
+            let allProjects = this.state.projects.slice();
+            let index = allProjects.findIndex(p => projectId === p.id);
+            allProjects[index].checklist = allProjects[index].checklist.concat(response);
+
+            this.setState({
+                projects: allProjects
+            });
+        };
+
+        HttpCall.post(BaseURL.singleProjectChecklist.replace('{1}', projectId), callback, item);
+    }
+
+
     setTimerRunning = function (isRunning) {
         this.setState({isTimerRunning: isRunning});
     };
@@ -197,6 +214,7 @@ class App extends Component {
                                             submitForm={this.submitProjectForm}
                                             cancelForm={this.cancelProjectForm}
                                             deleteProject={this.deleteProject}
+                                            addChecklistItem={this.addProjectChecklistItem}
                                             setProjectFormEdit={this.setProjectFormEdit}
                             />
                         </div>
