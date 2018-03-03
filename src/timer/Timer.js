@@ -24,6 +24,7 @@ class Timer extends Component {
     toggleTimer() {
         let running = !this.state.isRunning;
         this.setState({isRunning: running});
+        this.props.setTimerRunning(running);
         if (running) {
             this.timer = setInterval(this.tick, 1000);
         } else {

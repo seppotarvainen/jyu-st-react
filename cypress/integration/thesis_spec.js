@@ -145,4 +145,21 @@ describe('React project test', function () {
         cy.get('h1').contains('Totally new project title');
     });
 
+    it('Test version 1.3: timer lock', function () {
+        addProject('My project title', 'This is something absolutely great');
+        addProject('Another project', 'This is something else');
+
+        // start timer
+        cy.get('button.btn-lg.btn-info').click();
+
+        // check that everything is disabled
+        cy.get('.col-sm-3>div button.list-group-item[disabled]').should('have.length', 2);
+
+        cy.contains('Add project').should('be.disabled');
+        cy.contains('Delete project').should('be.disabled');
+        cy.contains('Edit project').should('be.disabled');
+        // stop timer
+        cy.get('button.btn-lg').click();
+    });
+
 });

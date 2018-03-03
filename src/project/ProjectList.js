@@ -12,6 +12,7 @@ export default class ProjectList extends Component {
 
             <ProjectListItem key={proj.id}
                              project={proj}
+                             isTimerRunning={this.props.isTimerRunning}
                              isSelected={this.props.selectedProject ? proj.id === this.props.selectedProject.id : false}
                              handleSelect={this.props.handleSelect}/>)
         );
@@ -45,7 +46,8 @@ class ProjectListItem extends Component {
 
         return (
             <div>
-                <button onClick={this.handleClick} className={className}>{this.props.project.title} {doneIcon}</button>
+                <button disabled={this.props.isTimerRunning} onClick={this.handleClick}
+                        className={"btn " + className}>{this.props.project.title} {doneIcon}</button>
             </div>);
     }
 }
