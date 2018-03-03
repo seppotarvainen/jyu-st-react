@@ -26,6 +26,10 @@ class App extends Component {
         this.deleteProject = this.deleteProject.bind(this);
         this.cancelProjectForm = this.cancelProjectForm.bind(this);
         this.submitProjectForm = this.submitProjectForm.bind(this);
+        this.setProjectView = this.setProjectView.bind(this);
+        this.setProjectFormEdit = this.setProjectFormEdit.bind(this);
+        this.handleSubmitEditForm = this.handleSubmitEditForm.bind(this);
+        this.handleSubmitNewForm = this.handleSubmitNewForm.bind(this);
     }
 
     componentDidMount() {
@@ -56,13 +60,21 @@ class App extends Component {
 
     setProjectFormAdd() {
         let emptyProject = this.generateEmpyProject();
-        this.setState({
-            isFormView: true,
-            selectedProject: emptyProject
-        })
+        this.setProjectView(emptyProject, true);
+    }
+
+    setProjectFormEdit(project) {
+        this.setProjectView(project, true);
     }
 
     submitProjectForm(project) {
+        if (project.id === null)
+            this.handleSubmitNewForm(project);
+        else
+            this.handleSubmitEditForm(project)
+    }
+
+    handleSubmitNewForm(project) {
         let callback = (data) => {
             this.setState({
                 projects: this.state.projects.concat(data),
@@ -74,10 +86,29 @@ class App extends Component {
         HttpCall.post(BaseURL.base, callback, project);
     }
 
-    cancelProjectForm() {
+    handleSubmitEditForm(project) {
+
+        let callback = (data) => {
+            this.setState({
+                projects: this.state.projects.map(p => p.id === project.id ? project : p),
+                selectedProject: data,
+                isFormView: false
+            })
+        };
+
+        const url = BaseURL.singleProject.replace("{1}", project.id);
+
+        HttpCall.put(url, callback, project);
+    }
+
+    cancelProjectForm(project) {
+        this.setProjectView(project, false);
+    }
+
+    setProjectView(selectedProject, isFormView) {
         this.setState({
-            selectedProject: null,
-            isFormView: false
+            selectedProject: selectedProject,
+            isFormView: isFormView
         })
     }
 
@@ -147,6 +178,7 @@ class App extends Component {
                                             submitForm={this.submitProjectForm}
                                             cancelForm={this.cancelProjectForm}
                                             deleteProject={this.deleteProject}
+                                            setProjectFormEdit={this.setProjectFormEdit}
                             />
                         </div>
                     </div>

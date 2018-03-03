@@ -29,7 +29,8 @@ export default class ProjectForm extends Component {
     }
 
     cancelForm() {
-        this.props.cancelForm();
+        let project = this.props.project.id !== null ? this.props.project : null;
+        this.props.cancelForm(project);
     }
 
     handleChange(event) {

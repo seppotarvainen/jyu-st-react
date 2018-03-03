@@ -13,6 +13,7 @@ export default class ProjectView extends Component {
         this.updateTime = this.updateTime.bind(this);
         this.deleteProject = this.deleteProject.bind(this);
         this.toggleDone = this.toggleDone.bind(this);
+        this.clickEditProject = this.clickEditProject.bind(this);
     }
 
     updateTime(time) {
@@ -29,6 +30,10 @@ export default class ProjectView extends Component {
         let updatedProject = Object.assign(this.props.project);
         updatedProject.done = !updatedProject.done;
         this.props.updateProject(updatedProject);
+    }
+
+    clickEditProject() {
+        this.props.setProjectFormEdit(this.props.project);
     }
 
     render() {
@@ -51,6 +56,9 @@ export default class ProjectView extends Component {
                 {isProjectSelected ?
                     <div>
                         <div className="row">
+                            <button type="button" className="btn btn-default" onClick={this.clickEditProject}>
+                                Edit project
+                            </button>
                             <button type="button" className="btn btn-danger" onClick={this.deleteProject}>
                                 <span className="glyphicon glyphicon-trash" aria-hidden="true"/> Delete project
                             </button>
